@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+const chatId = new URLSearchParams(location.search).get("chat");
+
+navigator.geolocation.getCurrentPosition(async (pos) => {
+  const lat = pos.coords.latitude;
+  const lon = pos.coords.longitude;
+
+  const res = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+  );
+
+  const data = await res.json();
+
+  fetch("/weather", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chatId,
+      lat,
+      lon,
+      weather: data.current_weather
+    })
+  });
+
+  document.body.innerHTML = "Done";
+});
+</script>
+
+</body>
+</html>
