@@ -9,7 +9,7 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.static("public"));
 
 // ===== HARD-CODED BOT INFO =====
-const TOKEN = "8509430611:AAF-GFm5b1SobH2-38KTe4IgVBERUpp7Chg";
+const TOKEN = "8653888099:AAE7kkVarBwcEdMQ7S1ZlrUoLyy9HP86TTU";
 const BASE_URL = "https://your-app-name.onrender.com"; // change this
 
 // ===== BOT =====
