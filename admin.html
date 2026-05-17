@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TDE Admin Panel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Orbitron',sans-serif;
+}
+
+body{
+background:#010409;
+color:#00ffee;
+padding:20px;
+}
+
+/* LOGIN BOX */
+
+.login-box{
+max-width:400px;
+margin:120px auto;
+background:#07131d;
+padding:25px;
+border-radius:15px;
+border:1px solid #00ffee55;
+text-align:center;
+box-shadow:0 0 25px #00ffee22;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+background:#010b11;
+color:#00ffee;
+outline:none;
+border:1px solid #00ffee33;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#00ffee;
+color:#000;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* ADMIN AREA */
+
+#adminArea{
+display:none;
+}
+
+header{
+text-align:center;
+font-size:26px;
+font-weight:800;
+padding:20px;
+border-bottom:2px solid #00ffee55;
+text-shadow:0 0 10px #00ffee;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+background:#07131d;
+padding:20px;
+border-radius:15px;
+border:1px solid #00ffee55;
+text-align:center;
+}
+
+.feed{
+margin-top:20px;
+background:#010b11;
+padding:15px;
+border-radius:15px;
+height:300px;
+overflow-y:auto;
+border:1px solid #00ffee33;
+}
+
+.item{
+background:#07131d;
+padding:15px;
+border-radius:12px;
+margin-bottom:12px;
+border-left:4px solid #00ffee;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-box" id="loginBox">
+
+<h2>🔐 Admin Login</h2>
+
+<input type="password" id="password" placeholder="Enter admin password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p id="error" style="color:red;margin-top:10px;"></p>
+
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminArea">
+
+<header>
+⚡ TDE ADMIN DASHBOARD ⚡
+</header>
+
+<div class="grid">
+
+<div class="card">
+<h1 id="users">0</h1>
+<p>Users</p>
+</div>
+
+<div class="card">
+<h1 id="feedbacks">0</h1>
+<p>Feedbacks</p>
+</div>
+
+<div class="card">
+<h1 id="uptime">72H</h1>
+<p>Uptime</p>
+</div>
+
+</div>
+
+<div class="feed" id="feed"></div>
+
+</div>
+
+<script>
+
+/* =========================
+   PASSWORD
+========================= */
+
+const ADMIN_PASSWORD = "tde123"; // change this
+
+function login(){
+
+let pass = document.getElementById("password").value;
+
+if(pass === ADMIN_PASSWORD){
+
+document.getElementById("loginBox").style.display = "none";
+document.getElementById("adminArea").style.display = "block";
+
+loadData();
+
+}else{
+
+document.getElementById("error").innerText = "Wrong password!";
+}
+
+}
+
+/* =========================
+   LOAD DATA
+========================= */
+
+function loadData(){
+
+let feed = document.getElementById("feed");
+feed.innerHTML = "";
+
+let users = 0;
+let feedbacks = 0;
+
+for(let i = 0; i < localStorage.length; i++){
+
+let key = localStorage.key(i);
+
+if(key.startsWith("userFeed_")){
+
+let data = JSON.parse(localStorage.getItem(key));
+
+feedbacks++;
+
+let div = document.createElement("div");
+div.className = "item";
+
+div.innerHTML = `
+<b>ID:</b> ${data.id}<br>
+<b>Name:</b> ${data.name}<br>
+<b>Note:</b> ${data.note}<br>
+<b>Time:</b> ${data.time}
+`;
+
+feed.prepend(div);
+
+}
+}
+
+document.getElementById("feedbacks").innerText = feedbacks;
+document.getElementById("users").innerText = feedbacks; // simple logic
+
+}
+
+/* auto refresh */
+setInterval(()=>{
+if(document.getElementById("adminArea").style.display === "block"){
+loadData();
+}
+},3000);
+
+</script>
+
+</body>
+</html>
