@@ -1,0 +1,178 @@
+<!-- =========================
+     INSTAGRAM PAGE
+     save as: instagram.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TDE Instagram Center</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#fff7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+
+h1{
+font-size:28px;
+margin-bottom:10px;
+text-align:center;
+background:linear-gradient(90deg,#ff0069,#ff7a00,#ffcc00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+p{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+}
+
+input,
+textarea{
+width:100%;
+padding:15px;
+border:none;
+background:#f8f1f6;
+border-radius:15px;
+margin-bottom:20px;
+font-size:15px;
+outline:none;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:linear-gradient(90deg,#ff0069,#ff7a00);
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.success{
+display:none;
+text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div id="formPage">
+
+<h1>Welcome to TDE Instagram Center</h1>
+
+<p>Input your details below</p>
+
+<input type="text" id="name" placeholder="Input your name">
+
+<textarea id="note" placeholder="Input your note"></textarea>
+
+<button onclick="submitForm()">
+Finish
+</button>
+
+</div>
+
+<div class="success" id="successPage">
+
+<h2>Sent Successfully 🎉</h2>
+
+<p>Your note has been delivered</p>
+
+</div>
+
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const userID = params.get("id");
+
+function submitForm(){
+
+let name =
+document.getElementById("name").value;
+
+let note =
+document.getElementById("note").value;
+
+if(name.trim()==="" || note.trim()===""){
+
+alert("Fill all fields");
+return;
+
+}
+
+let feedback = {
+
+platform:"Instagram",
+
+id:userID,
+
+name:name,
+
+note:note,
+
+time:new Date().toLocaleTimeString()
+
+};
+
+localStorage.setItem(
+"userFeed_" + userID,
+JSON.stringify(feedback)
+);
+
+document.getElementById("formPage")
+.style.display="none";
+
+document.getElementById("successPage")
+.style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
