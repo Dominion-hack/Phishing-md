@@ -245,6 +245,178 @@ No link generated...
 
 </div>
 
+<!-- =========================
+ADD THIS INSIDE index.html
+========================= -->
+
+<!-- WhatsApp Button -->
+
+<button onclick="openWhatsAppPopup()">
+WhatsApp Premium
+</button>
+
+<!-- PASSWORD POPUP -->
+
+<div class="popup" id="waPopup">
+
+<div class="popup-box">
+
+<h2>🔒 WhatsApp Premium</h2>
+
+<p>
+Enter premium password
+</p>
+
+<input type="password"
+id="waPassword"
+placeholder="Input password">
+
+<button onclick="generateWhatsAppLink()">
+Continue
+</button>
+
+<button class="close-btn"
+onclick="closePopup()">
+Close
+</button>
+
+</div>
+
+</div>
+
+<style>
+
+/* =========================
+   POPUP
+========================= */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup-box{
+width:90%;
+max-width:400px;
+background:#07131d;
+padding:25px;
+border-radius:20px;
+border:1px solid #00ffee55;
+box-shadow:0 0 25px #00ffee33;
+text-align:center;
+}
+
+.popup-box h2{
+margin-bottom:10px;
+color:#25d366;
+}
+
+.popup-box p{
+margin-bottom:20px;
+color:#b7fff5;
+}
+
+.popup-box input{
+width:100%;
+padding:15px;
+border:none;
+outline:none;
+border-radius:12px;
+background:#010b11;
+color:#00ffee;
+margin-bottom:15px;
+border:1px solid #00ffee33;
+}
+
+.popup-box button{
+width:100%;
+margin-top:10px;
+}
+
+.close-btn{
+background:#ff4444 !important;
+color:white !important;
+}
+
+</style>
+
+<script>
+
+/* =========================
+   OPEN POPUP
+========================= */
+
+function openWhatsAppPopup(){
+
+document.getElementById("waPopup")
+.style.display = "flex";
+
+}
+
+/* =========================
+   CLOSE POPUP
+========================= */
+
+function closePopup(){
+
+document.getElementById("waPopup")
+.style.display = "none";
+
+}
+
+/* =========================
+   GENERATE WHATSAPP LINK
+========================= */
+
+function generateWhatsAppLink(){
+
+const PASSWORD = "tdewa";
+
+let pass =
+document.getElementById("waPassword").value;
+
+if(pass !== PASSWORD){
+
+alert("Wrong password");
+
+return;
+
+}
+
+/* Create ID */
+
+let currentID =
+Math.random().toString(36)
+.substring(2,8);
+
+/* Create Link */
+
+let link =
+window.location.origin +
+"/whatsapp.html?id=" +
+currentID;
+
+/* Show Link */
+
+document.getElementById("linkBox")
+.innerText = link;
+
+/* Close Popup */
+
+closePopup();
+
+}
+
+</script>
+
 <!-- DASHBOARD -->
 
 <div class="box">
