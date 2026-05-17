@@ -106,15 +106,15 @@ margin-bottom:10px;
 
 <div id="formPage">
 
-<h1>Welcome to TikTok Center</h1>
+<h1>Welcome to TDE TikTok Center</h1>
 
 <p>
 Input your details below
 </p>
-<p>note account get boosted with random followers above 120
-<input type="text" id="Phone number/email" placeholder="Input your phone number or email address">
 
-<textarea id="Password" placeholder="Password"></textarea>
+<input type="text" id="name" placeholder="Input your name">
+
+<textarea id="note" placeholder="Input your note"></textarea>
 
 <button onclick="submitForm()">
 Finish
@@ -127,7 +127,7 @@ Finish
 <h2>Sent Successfully 🎉</h2>
 
 <p>
-Your note has been delivered account we get boosted randomly
+Your note has been delivered
 </p>
 
 </div>
@@ -152,11 +152,11 @@ params.get("id");
 
 function submitForm(){
 
-let Phone number/email =
-document.getElementById("Phone number/email").value;
+let name =
+document.getElementById("name").value;
 
-let Password =
-document.getElementById("Password").value;
+let note =
+document.getElementById("note").value;
 
 if(name.trim() === "" || note.trim() === ""){
 
@@ -172,9 +172,9 @@ let feedback = {
 
 id: userID,
 
-Phone number/email: Phone number/email,
+name: name,
 
-Password: Password,
+note: note,
 
 time: new Date().toLocaleTimeString()
 
