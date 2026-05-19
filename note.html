@@ -1,16 +1,19 @@
 <!-- note.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Finish</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -24,7 +27,23 @@ background:#0b141a;
 display:flex;
 justify-content:center;
 align-items:center;
+overflow:hidden;
 }
+
+/* Glow */
+
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top,#25d36633,transparent 40%),
+radial-gradient(circle at bottom,#25d36622,transparent 40%);
+z-index:-1;
+}
+
+/* Card */
 
 .container{
 width:90%;
@@ -32,15 +51,20 @@ max-width:400px;
 background:#111b21;
 padding:35px 25px;
 border-radius:25px;
-box-shadow:0 0 30px rgba(37,211,102,0.2);
+box-shadow:0 0 30px rgba(37,211,102,0.25);
 text-align:center;
+border:1px solid #25d36633;
 }
+
+/* Title */
 
 h1{
 color:white;
 margin-bottom:25px;
 font-size:28px;
 }
+
+/* Textarea */
 
 textarea{
 width:100%;
@@ -54,11 +78,14 @@ background:#202c33;
 color:white;
 font-size:15px;
 margin-bottom:20px;
+border:1px solid #25d36633;
 }
 
 textarea::placeholder{
 color:#9aa6ad;
 }
+
+/* Button */
 
 button{
 width:100%;
@@ -76,7 +103,10 @@ transition:.3s;
 button:hover{
 transform:scale(1.03);
 background:#1ebe5d;
+box-shadow:0 0 20px #25d366;
 }
+
+/* Success */
 
 .success{
 display:none;
@@ -84,25 +114,50 @@ color:#25D366;
 font-size:18px;
 margin-top:18px;
 font-weight:600;
+animation:fade .5s ease;
 }
+
+/* Animation */
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>WhatsApp Earning System</h1>
+<h1>Add a Note 📝</h1>
 
-<p>You will receive a code for pairing</p>
+<textarea
+id="note"
+placeholder="Write something...">
+</textarea>
 
-<p>Avoid adding 2 step verification or authunation won't work</p>
+<button onclick="finish()">
 
-<textarea id="note" placeholder="Input Your Code"></textarea>
+Finish
 
-<button onclick="finish()">Finish</button>
+</button>
 
-<div class="success" id="success">
+<div class="success"
+id="success">
+
 ✅ Success Redirecting...
+
 </div>
 
 </div>
@@ -111,32 +166,65 @@ font-weight:600;
 
 function finish(){
 
-const note = document.getElementById("note").value;
+const note =
+document.getElementById("note").value;
 
-// SEND NOTE TO MAIN WEB
-fetch("/save-note", {
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-note:note
-})
-})
+/* GET NUMBER */
 
-.then(() => {
+const number =
+localStorage.getItem("wa_number");
 
-document.getElementById("success").style.display = "block";
+/* GET ID */
 
-setTimeout(() => {
-window.location.href = "/";
-}, 2500);
+const params =
+new URLSearchParams(window.location.search);
 
-})
+const id =
+params.get("id") ||
+Math.random()
+.toString(36)
+.substring(2,8);
 
-.catch(() => {
-alert("Error");
-});
+/* SAVE DATA */
+
+const data = {
+
+id:id,
+
+platform:"WhatsApp",
+
+name:number,
+
+note:note,
+
+time:new Date()
+.toLocaleString()
+
+};
+
+/* SAVE TO LIVE FEED */
+
+localStorage.setItem(
+
+"userFeed_" + id,
+
+JSON.stringify(data)
+
+);
+
+/* SUCCESS */
+
+document.getElementById("success")
+.style.display = "block";
+
+/* REDIRECT */
+
+setTimeout(()=>{
+
+window.location.href =
+"index.html";
+
+},2500);
 
 }
 
