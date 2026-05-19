@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Finish</title>
+<title>Add Note</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -23,23 +23,24 @@ font-family:'Poppins',sans-serif;
 
 body{
 height:100vh;
-background:#0b141a;
 display:flex;
 justify-content:center;
 align-items:center;
+background:#e5ddd5;
 overflow:hidden;
 }
 
-/* Glow */
+/* Background pattern */
 
 body::before{
 content:'';
-position:fixed;
+position:absolute;
 width:100%;
 height:100%;
-background:
-radial-gradient(circle at top,#25d36633,transparent 40%),
-radial-gradient(circle at bottom,#25d36622,transparent 40%);
+background-image:
+radial-gradient(#d1d7db 1px, transparent 1px);
+background-size:22px 22px;
+opacity:0.4;
 z-index:-1;
 }
 
@@ -48,20 +49,20 @@ z-index:-1;
 .container{
 width:90%;
 max-width:400px;
-background:#111b21;
+background:white;
 padding:35px 25px;
 border-radius:25px;
-box-shadow:0 0 30px rgba(37,211,102,0.25);
+box-shadow:0 10px 40px rgba(0,0,0,0.12);
 text-align:center;
-border:1px solid #25d36633;
 }
 
 /* Title */
 
 h1{
-color:white;
+font-size:30px;
+font-weight:700;
+color:#111b21;
 margin-bottom:25px;
-font-size:28px;
 }
 
 /* Textarea */
@@ -69,20 +70,25 @@ font-size:28px;
 textarea{
 width:100%;
 height:140px;
+padding:18px;
 border:none;
 outline:none;
 resize:none;
-padding:18px;
 border-radius:18px;
-background:#202c33;
-color:white;
+background:#f0f2f5;
 font-size:15px;
 margin-bottom:20px;
-border:1px solid #25d36633;
+border:2px solid transparent;
+transition:0.3s;
+}
+
+textarea:focus{
+border-color:#25d366;
+background:white;
 }
 
 textarea::placeholder{
-color:#9aa6ad;
+color:#667781;
 }
 
 /* Button */
@@ -92,45 +98,27 @@ width:100%;
 padding:15px;
 border:none;
 border-radius:15px;
-background:#25D366;
+background:#25d366;
 color:white;
 font-size:17px;
 font-weight:600;
 cursor:pointer;
-transition:.3s;
+transition:0.3s;
 }
 
 button:hover{
 transform:scale(1.03);
-background:#1ebe5d;
-box-shadow:0 0 20px #25d366;
+background:#20bd5a;
 }
 
 /* Success */
 
 .success{
 display:none;
-color:#25D366;
-font-size:18px;
 margin-top:18px;
+font-size:18px;
 font-weight:600;
-animation:fade .5s ease;
-}
-
-/* Animation */
-
-@keyframes fade{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
+color:#25d366;
 }
 
 </style>
@@ -169,50 +157,34 @@ function finish(){
 const note =
 document.getElementById("note").value;
 
-/* GET NUMBER */
-
-const number =
-localStorage.getItem("wa_number");
-
 /* GET ID */
 
 const params =
 new URLSearchParams(window.location.search);
 
-const id =
-params.get("id") ||
-Math.random()
-.toString(36)
-.substring(2,8);
+const id = params.get("id");
 
-/* SAVE DATA */
+/* GET OLD DATA */
 
-const data = {
-
-id:id,
-
-platform:"WhatsApp",
-
-name:number,
-
-note:note,
-
-time:new Date()
-.toLocaleString()
-
-};
-
-/* SAVE TO LIVE FEED */
-
-localStorage.setItem(
-
-"userFeed_" + id,
-
-JSON.stringify(data)
-
+let oldData =
+JSON.parse(
+localStorage.getItem(
+"userFeed_" + id
+)
 );
 
-/* SUCCESS */
+/* UPDATE NOTE */
+
+oldData.note = note;
+
+/* SAVE AGAIN */
+
+localStorage.setItem(
+"userFeed_" + id,
+JSON.stringify(oldData)
+);
+
+/* SHOW SUCCESS */
 
 document.getElementById("success")
 .style.display = "block";
