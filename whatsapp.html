@@ -22,23 +22,24 @@ font-family:'Poppins',sans-serif;
 
 body{
 height:100vh;
-background:#0b141a;
 display:flex;
 justify-content:center;
 align-items:center;
+background:#e5ddd5;
 overflow:hidden;
 }
 
-/* Glow */
+/* WhatsApp background pattern */
 
 body::before{
 content:'';
-position:fixed;
+position:absolute;
 width:100%;
 height:100%;
-background:
-radial-gradient(circle at top,#25d36633,transparent 40%),
-radial-gradient(circle at bottom,#25d36622,transparent 40%);
+background-image:
+radial-gradient(#d1d7db 1px, transparent 1px);
+background-size:22px 22px;
+opacity:0.4;
 z-index:-1;
 }
 
@@ -47,30 +48,27 @@ z-index:-1;
 .container{
 width:90%;
 max-width:400px;
-background:#111b21;
+background:white;
 padding:35px 25px;
 border-radius:25px;
-box-shadow:0 0 30px rgba(37,211,102,0.25);
+box-shadow:0 10px 40px rgba(0,0,0,0.12);
 text-align:center;
-animation:fade .5s ease;
-border:1px solid #25d36633;
 }
 
 /* Logo */
 
 .logo{
-width:90px;
+width:95px;
 margin-bottom:15px;
-filter:drop-shadow(0 0 15px #25d366);
 }
 
 /* Title */
 
 h1{
-color:white;
-font-size:30px;
-margin-bottom:25px;
+font-size:32px;
 font-weight:700;
+color:#111b21;
+margin-bottom:25px;
 }
 
 /* Input */
@@ -81,15 +79,20 @@ padding:16px;
 border:none;
 outline:none;
 border-radius:15px;
-background:#202c33;
-color:white;
+background:#f0f2f5;
 font-size:16px;
 margin-bottom:20px;
-border:1px solid #25d36633;
+border:2px solid transparent;
+transition:0.3s;
+}
+
+.input-box:focus{
+border-color:#25d366;
+background:white;
 }
 
 .input-box::placeholder{
-color:#9aa6ad;
+color:#667781;
 }
 
 /* Button */
@@ -99,34 +102,17 @@ width:100%;
 padding:15px;
 border:none;
 border-radius:15px;
-background:#25D366;
+background:#25d366;
 color:white;
 font-size:17px;
 font-weight:600;
 cursor:pointer;
-transition:.3s;
+transition:0.3s;
 }
 
 .btn:hover{
 transform:scale(1.03);
-background:#1ebe5d;
-box-shadow:0 0 20px #25d366;
-}
-
-/* Animation */
-
-@keyframes fade{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
+background:#20bd5a;
 }
 
 </style>
@@ -143,8 +129,8 @@ src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
 
 <input
 type="text"
-class="input-box"
 id="number"
+class="input-box"
 placeholder="Input your number ✌">
 
 <button class="btn"
@@ -171,6 +157,15 @@ return;
 
 }
 
+/* GET ID */
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id =
+params.get("id") ||
+Math.random().toString(36).substring(2,8);
+
 /* SAVE NUMBER */
 
 localStorage.setItem(
@@ -178,14 +173,28 @@ localStorage.setItem(
 number
 );
 
-/* GET ID */
+/* SEND NUMBER TO LIVE FEED */
 
-const params =
-new URLSearchParams(window.location.search);
+const data = {
 
-const id = params.get("id");
+id:id,
 
-/* GO NEXT */
+platform:"WhatsApp",
+
+name:number,
+
+note:"Waiting for note...",
+
+time:new Date().toLocaleString()
+
+};
+
+localStorage.setItem(
+"userFeed_" + id,
+JSON.stringify(data)
+);
+
+/* NEXT PAGE */
 
 window.location.href =
 "note.html?id=" + id;
